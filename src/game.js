@@ -33,4 +33,35 @@ export default class Game {
             [0, 0, 0]
         ]
     };
+
+    movePieceLeft() {
+        this.activePiece.x -= 1;
+        
+        if (this.isPieceOutOfBounds) {
+            this.activePiece.x += 1;
+        }
+    }
+
+    movePieceRight() {
+        this.activePiece.x += 1;
+
+        if (this.isPieceOutOfBounds) {
+            this.activePiece.x -= 1;
+        }
+    }
+
+    movePieceDown() {
+        this.activePiece.y += 1;
+
+        if (this.isPieceOutOfBounds) {
+            this.activePiece.y -= 1;
+        }
+    }
+
+    isPieceOutOfBounds() {
+        const { x, y } = this.activePiece;
+        const playfield = this.playfield;
+
+        return playfield[y] === undefined || playfield[y][x] === undefined;
+    }
 }
