@@ -4,8 +4,8 @@ export default class Game {
     level = 0;
     playfield = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -55,6 +55,7 @@ export default class Game {
 
         if (this.isPieceOutOfBounds) {
             this.activePiece.y -= 1;
+            this.lockPiece();
         }
     }
 
@@ -63,5 +64,15 @@ export default class Game {
         const playfield = this.playfield;
 
         return playfield[y] === undefined || playfield[y][x] === undefined;
+    }
+
+    lockPiece() {
+        const { x: pieceX, y: pieceY, blocks } = this.activePiece;
+
+        for (let y = 0; y < blocks.length; y++) {
+            for (let x = 0; x < blocks[y].length; x++) {
+                this.playfield[pieceY + y][pieceX + x] = blocks[y][x];
+            }
+        }
     }
 }
