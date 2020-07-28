@@ -27,10 +27,31 @@ export default class Game {
     activePiece = {
         x: 0,
         y: 0,
-        blocks: [
-            [0, 1, 0],
-            [1, 1, 1],
-            [0, 0, 0]
+        get blocks() {
+            return this.rotations[this.rotationIndex];
+        },
+        rotationIndex: 0,
+        rotations: [
+            [
+                [0, 1, 0],
+                [1, 1, 1],
+                [0, 0, 0]
+            ],
+            [
+                [0, 1, 0],
+                [0, 1, 1],
+                [0, 1, 0]
+            ],
+            [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 1, 0]
+            ],
+            [
+                [0, 1, 0],
+                [1, 1, 0],
+                [0, 1, 0]
+            ]
         ]
     };
 
@@ -59,6 +80,18 @@ export default class Game {
         }
     }
 
+    rotatePiece() {
+        const rotationIndex = this.activePiece.rotationIndex;
+
+        rotationIndex = rotationIndex < 3 ? rotationIndex + 1 : 0;
+
+        if (this.hasCollision()) {
+            rotationIndex = rotationIndex > 0 ? rotationIndex - 1 : 3;
+        }
+
+        return this.activePiece;
+    }
+
     hasCollision() {
         const { x: pieceX, y: pieceY, blocks } = this.activePiece;
 
@@ -72,6 +105,7 @@ export default class Game {
                 }
             }
         }
+
         return false;
     }
 
