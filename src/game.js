@@ -81,12 +81,10 @@ export default class Game {
     }
 
     rotatePiece() {
-        const rotationIndex = this.activePiece.rotationIndex;
-
-        rotationIndex = rotationIndex < 3 ? rotationIndex + 1 : 0;
+        this.activePiece.rotationIndex = this.activePiece.rotationIndex < 3 ? this.activePiece.rotationIndex + 1 : 0;
 
         if (this.hasCollision()) {
-            rotationIndex = rotationIndex > 0 ? rotationIndex - 1 : 3;
+            this.activePiece.rotationIndex = this.activePiece.rotationIndex > 0 ? this.activePiece.rotationIndex - 1 : 3;
         }
 
         return this.activePiece;
@@ -99,8 +97,8 @@ export default class Game {
             for (let x = 0; x < blocks[y].length; x++) {
                 if (blocks[y][x] && 
                     ((this.playfield[pieceY + y] === undefined || 
-                        this.playfield[pieceY + y][pieceX + x] === undefined)) || 
-                        this.playfield[pieceY + y][pieceX + x]) {
+                        this.playfield[pieceY + y][pieceX + x] === undefined) || 
+                        this.playfield[pieceY + y][pieceX + x])) {
                     return true;
                 }
             }
