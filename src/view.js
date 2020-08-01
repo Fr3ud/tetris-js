@@ -4,7 +4,7 @@ export default class View {
         this.width = width;
         this.height = height;
 
-        this.canvas = window.createElement('canvas');
+        this.canvas = document.createElement('canvas');
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.context = this.canvas.getContext('2d');
